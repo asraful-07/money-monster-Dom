@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income, Expense, and Savings Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Income, Expense, and Savings Tracker</h1>
+    
+    <div class="input-group">
+        <label for="income">Income: </label>
+        <input type="number" id="income" placeholder="Enter your income">
+    </div>
+
+    <div class="input-group">
+        <label for="expense1">Expense 1: </label>
+        <input type="number" id="expense1" placeholder="Enter expense 1">
+    </div>
+
+    <div class="input-group">
+        <label for="expense2">Expense 2: </label>
+        <input type="number" id="expense2" placeholder="Enter expense 2">
+    </div>
+
+    <div class="input-group">
+        <label for="expense3">Expense 3: </label>
+        <input type="number" id="expense3" placeholder="Enter expense 3">
+    </div>
+
+    <div class="input-group">
+        <label for="saving">Savings: </label>
+        <input type="number" id="saving" placeholder="Enter your savings">
+    </div>
+
+    <button onclick="calculate()">Calculate Expenses</button>
+    <button onclick="calculateWithSavings()">Save and Calculate</button>
+
+    <h2>Result</h2>
+    <p id="result"></p>
+
+    <h3>History</h3>
+    <ul id="history"></ul>
+
+    <script>
+        let totalRemaining = 0;
+
+        function calculate() {
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const expense1 = parseFloat(document.getElementById('expense1').value) || 0;
+            const expense2 = parseFloat(document.getElementById('expense2').value) || 0;
+            const expense3 = parseFloat(document.getElementById('expense3').value) || 0;
+
+            const totalExpenses = expense1 + expense2 + expense3;
+            totalRemaining = income - totalExpenses;
+
+            // Showing the result
+            document.getElementById('result').innerText = `Total Expenses: ${totalExpenses} BDT, Remaining Balance: ${totalRemaining} BDT`;
+
+            // Adding to history
+            const historyList = document.getElementById('history');
+            const listItem = document.createElement('li');
+            listItem.innerText = `Income: ${income} BDT, Expenses: ${totalExpenses} BDT, Remaining: ${totalRemaining} BDT`;
+            historyList.appendChild(listItem);
+        }
+
+        function calculateWithSavings() {
+            const saving = parseFloat(document.getElementById('saving').value) || 0;
+
+            const remainingAfterSavings = totalRemaining - saving;
+
+            // Showing the result with savings
+            document.getElementById('result').innerText = `Savings: ${saving} BDT, Remaining Balance after Savings: ${remainingAfterSavings} BDT`;
+
+            // Adding to history
+            const historyList = document.getElementById('history');
+            const listItem = document.createElement('li');
+            listItem.innerText = `Savings: ${saving} BDT, Remaining after Savings: ${remainingAfterSavings} BDT`;
+            historyList.appendChild(listItem);
+        }
+    </script>
+
+</body>
+</html>
